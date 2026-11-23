@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Astronomy on Tap - LSS 1</title>
+
+  <!-- reveal.js core + the "black" theme. Both are vendored in dist/,
+       so this deck works with no internet connection. -->
+  <link rel="stylesheet" href="dist/reset.css">
+  <link rel="stylesheet" href="dist/reveal.css">
+  <link rel="stylesheet" href="dist/theme/black.css" id="theme">
+  <!-- your own tweaks, loaded last so they win -->
+  <link rel="stylesheet" href="css/talk.css?v=32">
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- ================================================================
+         1. TITLE — full-bleed image, darkened so the text reads
+         data-background-* attributes go on the <section> itself.
+         ================================================================ -->
+    <section class="title"
+             data-state="hide-footer">
+      <h1>Light and Dark:<br>The cosmic tug of war</h1>
+      <p class="byline">
+        Dennis Neumann<br>
+        <span class="muted">Astronomy on Tap, 23.11.2026</span>
+      </p>
+      <div class="logos">
+        <img src="media/UniversiteitLeidenLogo.svg" alt="Leiden University">
+        <img src="media/ec_logo_transparent.png" alt="Euclid Consortium">
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         2. WHAT IS THE UNIVERSE MADE OF — ESA pie chart, built in 3 clicks
+         Click 1: ordinary matter (+ credit), click 2: + dark matter,
+         click 3: + dark energy. Each PNG contains the previous slices.
+         ================================================================ -->
+    <section class="fullbleed"
+             data-state="hide-footer">
+      <!-- filter for .pie-soft: makes white areas ~45% see-through, keeps black opaque
+           (alpha = 1 - 0.45 * brightness) -->
+      <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+        <filter id="white-see-through" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    -0.15 -0.15 -0.15 1 0"/>
+        </filter>
+      </svg>
+      <figure class="overlay-fig pie-soft">
+        <div class="stack">
+          <img class="fragment fade-in" data-fragment-index="1"
+               src="media/Universe_Pie_Chart_1.png" alt="Pie chart: ordinary matter 5%">
+          <img class="annot fragment fade-in" data-fragment-index="2"
+               src="media/Universe_Pie_Chart_2.png" alt="Pie chart: ordinary matter 5%, dark matter 26%">
+          <img class="annot fragment fade-in" data-fragment-index="3"
+               src="media/Universe_Pie_Chart_3.png" alt="Pie chart: ordinary matter 5%, dark matter 26%, dark energy 69%">
+        </div>
+        <figcaption class="fragment fade-in" data-fragment-index="1"><a href="https://sci.esa.int/web/euclid/-/cosmic-energy-budget" target="_blank" rel="noopener">Image</a>: ESA</figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ================================================================
+         3. EUCLID — the spacecraft (left) and one of its images (right)
+         ================================================================ -->
+    <section data-state="hide-footer">
+      <div class="euclid-pair">
+        <figure>
+          <img src="media/Euclid_spacecraft_cutout.png" alt="The Euclid spacecraft">
+          <figcaption><a href="https://www.esa.int/media/euclid-spacecraft-en-265208" target="_blank" rel="noopener">Image</a>: ESA. Work performed by ATG under contract for ESA</figcaption>
+        </figure>
+        <figure>
+          <img class="faint-border" src="media/Abell3128.jpg" alt="Galaxy cluster Abell 3128 seen by Euclid">
+          <figcaption><a href="https://www.esa.int/media/about-us/directorates/science/euclid/euclid-reveals-the-largest-ever-catalogue-of-strong-cosmic-lenses" target="_blank" rel="noopener">Image</a>: ESA/Euclid/Euclid Consortium/NASA, image processing by J.-C. Cuillandre and E. Bertin</figcaption>
+        </figure>
+      </div>
+
+      <!-- Pop-up video: fades in and plays on click, stays until the slide changes -->
+      <div class="video-pop">
+        <figure class="fragment fade-in">
+          <video class="faint-border" src="media/duvelglasvoet_bolletjes.mp4"
+                 muted playsinline preload="auto"></video>
+          <figcaption>Video: Koen Kuijken</figcaption>
+        </figure>
+      </div>
+    </section>
+
+
+    <!-- ================================================================
+         4. BAO DETECTION — Eisenstein et al. 2005, with spoiler masks
+         Order: plot with spoilers -> click: annotated version fades in
+         -> click: spoiler regions fade out.
+         Mask positions are % of the (square) image.
+         ================================================================ -->
+    <section data-state="hide-footer">
+      <figure class="overlay-fig">
+      <div class="spoiler-fig" style="display: block;">
+        <img src="media/eisenstein2005_bao.png" alt="SDSS galaxy correlation function showing the baryon acoustic peak">
+        <img class="overlay-img fragment fade-in" data-fragment-index="1"
+             src="media/eisenstein2005_bao_annotated.png" alt="">
+        <!-- one spoiler made of two rectangles: the zoom-in panel on top,
+             plus a column on the right reaching down over the BAO bump.
+             Box = left 27.5..94%, top 6.5..84.5% of the image; the clip-path
+             cuts out the lower-left corner (x < 27.8%, y > 66.7% of the box). -->
+        <div class="spoiler fragment fade-out" data-fragment-index="2"
+             style="left: 27.5%; top: 6.5%; width: 66.5%; height: 78%;
+                    clip-path: polygon(0 0, 100% 0, 100% 100%, 27.8% 100%, 27.8% 66.7%, 0 66.7%);">
+          <span style="position: absolute; left: 50%; top: 33.3%; transform: translate(-50%, -50%);">SPOILER</span>
+        </div>
+      </div>
+        <figcaption><a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...633..560E/abstract" target="_blank" rel="noopener">Eisenstein et al. 2005, ApJ 633, 560</a></figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ================================================================
+         4b. WHAT IS DARK MATTER? — corner title, Schneider excerpt on top.
+         Click: crossed-out version fades in over it AND the Forbes headline
+         fades in below (both data-fragment-index="1").
+         The PNGs are black text on transparent, hence the white panels.
+         ================================================================ -->
+    <section class="fullbleed dm-slide" data-state="hide-footer">
+      <h2 class="corner-title">What is dark matter?</h2>
+      <figure class="dm-fig">
+        <div class="stack">
+          <img src="media/wimp_schneider.png"
+               alt="Textbook excerpt: WIMPs are the most promising dark matter candidate and will most likely be detected">
+          <img class="dm-overlay fragment fade-in" data-fragment-index="1"
+               src="media/wimp_schneider_crossed.png" alt="">
+        </div>
+        <figcaption><a href="https://doi.org/10.1007/978-3-540-33175-9" target="_blank" rel="noopener">P. Schneider, Extragalactic Astronomy and Cosmology (Springer, 2006)</a>, p. 165f., ISBN-10 3-540-33174-3 (highlights added)</figcaption>
+      </figure>
+      <figure class="dm-fig dm-forbes fragment fade-in" data-fragment-index="1">
+        <img src="media/wimp_forbes.png"
+             alt="Headline: The 'WIMP Miracle' Hope For Dark Matter Is Dead">
+        <figcaption><a href="https://www.forbes.com/sites/startswithabang/2019/02/22/the-wimp-miracle-is-dead-as-dark-matter-experiments-come-up-empty-again/" target="_blank" rel="noopener">E. Siegel, "The 'WIMP Miracle' Hope For Dark Matter Is Dead"</a>, Forbes – Starts With A Bang, 22 Feb 2019</figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ================================================================
+         5. BAO VISUALISED — image on part of the screen, credit below it
+         ================================================================ -->
+    <section data-state="hide-footer">
+      <figure class="framed-fig">
+        <img class="faint-border" src="media/bao_visualised.png"
+             alt="Baryon acoustic oscillations: the same ring scale from the early universe to galaxies today">
+        <figcaption>Image: Gabriela Secara, Perimeter Institute</figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ================================================================
+         6. SUPERNOVAE — Riess et al. 1998, Fig. 4 (upper panel)
+         Click: the annotated version fades in on top of the plain plot.
+         ================================================================ -->
+    <section data-state="hide-footer">
+      <figure class="overlay-fig">
+        <div class="stack">
+          <img src="media/ariess_fig4_upper.png"
+               alt="Supernova Hubble diagram: distance modulus versus redshift">
+          <img class="annot fragment fade-in"
+               src="media/ariess_fig4_upper_annotated.png" alt="">
+        </div>
+        <figcaption><a href="https://ui.adsabs.harvard.edu/abs/1998AJ....116.1009R/abstract" target="_blank" rel="noopener">Riess et al. 1998, AJ 116, 1009</a></figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ================================================================
+         7. WHAT IS DARK ENERGY? — title top left, GIF top centre, bullets
+         Click: second line fades in AND the first bullet gets struck through
+         (both use data-fragment-index="1").
+         ================================================================ -->
+    <section class="fullbleed de-slide" data-state="hide-footer">
+      <h2 class="corner-title">What is dark energy?</h2>
+      <figure class="de-gif">
+        <img src="media/Quantum_Fluctuations.gif" alt="Animated visualisation of quantum vacuum fluctuations">
+        <figcaption><a href="http://www.physics.adelaide.edu.au/theory/staff/leinweber/VisualQCD/QCDvacuum/" target="_blank" rel="noopener">Derek Leinweber, CSSM, University of Adelaide, 2003</a></figcaption>
+      </figure>
+      <ul class="de-list">
+        <li class="fragment strike" data-fragment-index="1">vacuum energy density</li>
+        <li class="arrow fragment fade-in" data-fragment-index="1">off by 120 orders of magnitude</li>
+      </ul>
+    </section>
+
+
+    <!-- ================================================================
+         8. HISTORY OF THE UNIVERSE + FACILITIES
+         Left: NASA infographic. Right: a column for facilities (Euclid,
+         mirrored, for now) — add more <figure>s inside .facilities.
+         ================================================================ -->
+    <section data-state="hide-footer">
+      <div class="history-layout">
+        <figure class="history-fig">
+          <img src="media/universe-history.png"
+               alt="History of the Universe infographic, from inflation to today">
+          <figcaption><a href="https://science.nasa.gov/dark-energy/" target="_blank" rel="noopener">Image</a>: NASA</figcaption>
+        </figure>
+        <!-- facilities grid: row 1 Roman | CSST, row 2 Euclid (centred,
+             shown from the start), row 3 Rubin | DESI.
+             All except Euclid appear together on one click. -->
+        <div class="facilities">
+          <figure class="fragment fade-in" data-fragment-index="1">
+            <img src="media/roman_cropped.png" alt="The Nancy Grace Roman Space Telescope">
+            <figcaption><a href="https://assets.science.nasa.gov/dynamicimage/assets/science/missions/rst/spacecraft-illustrations/Roman_Space_Telescope_Animation1_Still.jpg" target="_blank" rel="noopener">Image</a>: NASA Goddard Space Flight Center Scientific Visualization Studio</figcaption>
+          </figure>
+          <figure class="fragment fade-in" data-fragment-index="1">
+            <img src="media/csst_cropped.png" alt="The Xuntian (CSST) space telescope">
+            <figcaption><a href="https://commons.wikimedia.org/wiki/File:CSST%E6%83%B3%E8%B1%A1%E5%9B%BE.jpg" target="_blank" rel="noopener">Image</a>: Changchun Institute of Optics, Fine Mechanics and Physics, Chinese Academy of Sciences</figcaption>
+          </figure>
+          <figure class="fac-euclid">
+            <img class="mirror" src="media/Euclid_spacecraft_cutout.png" alt="The Euclid spacecraft">
+            <figcaption><a href="https://www.esa.int/media/euclid-spacecraft-en-265208" target="_blank" rel="noopener">Image</a>: ESA. Work performed by ATG under contract for ESA</figcaption>
+          </figure>
+          <figure class="fac-ground fragment fade-in" data-fragment-index="1">
+            <img src="media/rubin_cropped.png" alt="Vera C. Rubin Observatory">
+            <figcaption><a href="https://noirlab.edu/public/images/rubin-Abril-2024-N23-CC/" target="_blank" rel="noopener">Image</a>: NSF–DOE Vera C. Rubin Observatory/NOIRLab/SLAC/AURA/A. Pizarro D.</figcaption>
+          </figure>
+          <figure class="fac-ground fac-desi fragment fade-in" data-fragment-index="1">
+            <img src="media/desi_cropped.png" alt="The Mayall telescope dome, home of DESI">
+            <figcaption><a href="https://commons.wikimedia.org/wiki/File:DESI_crossfade_1_(sunset-Workup-01-CC).jpg" target="_blank" rel="noopener">Image</a>: Lawrence Berkeley National Lab/KPNO/NOIRLab/NSF/AURA</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         9. INLINE VIDEO WITH CONTROLS
+         Use this when the clip has sound, or when you want to start it
+         deliberately rather than on slide entry.
+         Add data-autoplay to the <video> tag to start it automatically.
+         ================================================================ -->
+    <!-- Full-screen video that starts on slide entry (muted, looping);
+         the credit sits in the bottom-left corner on top of it. -->
+    <section class="fullbleed"
+             data-background-video="media/illustris_movie_cube_sub_frame.mp4"
+             data-background-video-muted
+             data-background-size="contain"
+             data-background-color="#000"
+             data-state="hide-footer"
+             data-hide-bg-credit>
+      <p class="credit credit-centre" style="bottom: -20px;"><a href="https://www.illustris-project.org/media/" target="_blank" rel="noopener">Video</a>: Illustris Collaboration / Illustris Simulation</p>
+    </section>
+
+
+    <!-- ================================================================
+         10. FINAL — nothing but the background image, at full brightness
+         (the global background has a dark veil; this slide sets the same
+         image as its own background, without the veil)
+         ================================================================ -->
+    <section data-background-image="media/Euclid_Deep_Field_South_16x_zoom.jpg"
+             data-background-size="cover"
+             data-state="hide-footer"></section>
+
+
+    <!-- ================================================================
+         BACKUP SLIDES — all marked data-visibility="uncounted": they are
+         left out of the slide total and show no slide number.
+         ================================================================ -->
+    <section data-visibility="uncounted">
+      <h2>Backup slides</h2>
+    </section>
+
+    <!-- B1. ground vs space: Subaru, HST fades in on click -->
+    <section data-visibility="uncounted">
+      <figure class="overlay-fig">
+        <div class="stack">
+          <img src="media/groundVSspaceNASA_subaru.png" alt="Galaxy seen from the ground with Subaru">
+          <img class="annot fragment fade-in" src="media/groundVSspaceNASA_hst.png"
+               alt="The same galaxy seen from space with Hubble">
+        </div>
+        <figcaption><a href="https://science.nasa.gov/asset/hubble/comparison-of-imaging-from-the-ground-and-space/" target="_blank" rel="noopener">Image</a>: NASA, Mauro Giavalisco, Lexi Moustakas, Peter Capak, Len Cowie and the GOODS Team</figcaption>
+      </figure>
+    </section>
+
+    <!-- B2. Euclid spectroscopy: slider 1, slider 2 fades in on click -->
+    <section data-visibility="uncounted">
+      <figure class="overlay-fig">
+        <div class="stack framed-stack">
+          <img src="media/12_Spectroscopyslider1.jpg" alt="Euclid image of a field of galaxies">
+          <img class="annot fragment fade-in" src="media/12_Spectroscopyslider2.jpg"
+               alt="The same field seen through Euclid's slitless spectroscopy">
+        </div>
+        <figcaption><a href="https://www.esa.int/media/about-us/directorates/science/euclid/spectroscopy-how-and-why-esa-s-euclid-splits-cosmic-light-into-rainbows" target="_blank" rel="noopener">Image</a>: ESA/Euclid/Euclid Consortium/NASA, image processing by B. Granett</figcaption>
+      </figure>
+    </section>
+
+  </div>
+</div>
+
+<!-- running footer; remove if you don't want one -->
+<div class="footer">Astronomy on Tap - 23.11.2026 - Dennis Neumann</div>
+
+<!-- background image credit, shown on every slide -->
+<div class="bg-credit"><a href="https://www.esa.int/ESA_Multimedia/Images/2025/03/Euclid_Deep_Field_South_16x_zoom" target="_blank" rel="noopener">Background image</a>: ESA/Euclid/Euclid Consortium/NASA, image processing by J.-C. Cuillandre, E. Bertin, G. Anselmi</div>
+
+<script src="dist/reveal.js"></script>
+<script src="dist/plugin/notes.js"></script>
+<script src="dist/plugin/zoom.js"></script>
+<script>
+  // PDF export: a background video exports as a black rectangle, so swap
+  // it for the still named in data-poster before reveal starts. Give every
+  // background-video slide a data-poster and the PDF stays presentable.
+  if (window.location.search.match(/print-pdf/gi)) {
+    document.querySelectorAll('section[data-background-video]').forEach(s => {
+      const poster = s.getAttribute('data-poster');
+      if (!poster) return;
+      s.setAttribute('data-background-image', poster);
+      s.removeAttribute('data-background-video');
+    });
+  }
+
+  Reveal.initialize({
+    width: 1280,
+    height: 720,          // 16:9 — matches almost every projector
+    margin: 0.06,
+    minScale: 0.2,
+    maxScale: 2.0,
+
+    hash: true,           // slide number in the URL, so reload resumes
+    slideNumber: 'c/t',
+    controls: false,      // no navigation arrows in the bottom-right corner
+    progress: false,
+    overview: true,       // press Esc for the slide grid
+    center: true,
+
+    transition: 'fade',   // calm; 'slide' and 'none' are the alternatives
+    backgroundTransition: 'fade',
+
+    // don't advance past the end by accident during questions
+    loop: false,
+
+    plugins: [RevealNotes, RevealZoom]
+  });
+
+  // hide the footer on slides marked data-state="hide-footer", and the
+  // background-image credit on slides marked data-hide-bg-credit
+  const updateChrome = slide => {
+    document.body.classList.toggle(
+      'hide-footer', slide.getAttribute('data-state') === 'hide-footer');
+    document.body.classList.toggle(
+      'hide-bg-credit', slide.hasAttribute('data-hide-bg-credit'));
+    document.body.classList.toggle(
+      'backup', slide.getAttribute('data-visibility') === 'uncounted');
+  };
+  Reveal.on('slidechanged', e => updateChrome(e.currentSlide));
+  Reveal.on('ready', e => updateChrome(e.currentSlide));
+
+  // pop-up videos (.video-pop): play from the start when faded in,
+  // pause when faded out again, when stepping back, or when leaving the slide
+  const popVideo = el => el.closest('.video-pop')?.querySelector('video');
+  const stopAllPops = () =>
+    document.querySelectorAll('.video-pop video').forEach(v => v.pause());
+  Reveal.on('fragmentshown', e => {
+    const v = popVideo(e.fragment);
+    if (!v) return;
+    if (e.fragment.classList.contains('fade-in')) { v.currentTime = 0; v.play(); }
+    else v.pause();                               // outer fade-out step
+  });
+  Reveal.on('fragmenthidden', e => {
+    const v = popVideo(e.fragment);
+    if (!v) return;
+    if (e.fragment.classList.contains('fade-in')) v.pause();  // stepped back before it
+    else v.play();                                // stepped back onto it
+  });
+  Reveal.on('slidechanged', stopAllPops);
+</script>
+</body>
+</html>

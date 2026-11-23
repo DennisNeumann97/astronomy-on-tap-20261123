@@ -1,0 +1,527 @@
+/* ===========================================================
+   talk.css — tweaks on top of reveal.js "black" theme
+   Everything here is yours to change. The variables at the
+   top are the quickest way to restyle the whole deck.
+   =========================================================== */
+
+:root {
+  --accent: #f2c14e;        /* highlight colour (headings, rules)  */
+  --accent-2: #6ab7ff;      /* secondary highlight                 */
+  --muted: #9aa4b2;         /* captions, credits, footer           */
+  --ink: #e9ecf2;           /* body text                           */
+}
+
+.reveal {
+  font-size: 40px;          /* outreach audiences sit far away     */
+  color: var(--ink);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  text-transform: none;     /* ALL CAPS is hard to read in a big room */
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+
+.reveal h1 { font-size: 2.1em; }
+.reveal h2 { font-size: 1.5em; }
+.reveal h3 { font-size: 1.1em; color: var(--accent); }
+
+.reveal p,
+.reveal li { line-height: 1.35; }
+
+.reveal a { color: var(--accent-2); }
+
+/* --- title slide ----------------------------------------- */
+.title h1 { margin-bottom: 0.3em; }
+.title .byline {
+  font-size: 0.6em;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* logo row under the byline */
+.title .logos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  margin-top: 1.2em;
+}
+.title .logos img {
+  height: 110px;
+  width: auto;
+  margin: 0;
+  border: none;
+  box-shadow: none;
+  background: none;
+}
+
+/* --- one big sentence ------------------------------------ */
+.statement {
+  font-size: 1.7em;
+  font-weight: 600;
+  line-height: 1.2;
+  max-width: 18em;
+  margin: 0 auto;
+}
+.statement .accent { color: var(--accent); }
+
+/* --- section divider ------------------------------------- */
+.section-number {
+  font-size: 0.55em;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 0.4em;
+}
+
+/* --- text laid over a full-bleed image or video ----------- */
+/* The scrim keeps text readable over busy footage.          */
+.overlay {
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 14px;
+  padding: 0.7em 1em;
+  display: inline-block;
+  backdrop-filter: blur(3px);
+}
+
+/* --- two columns: plot on one side, words on the other ---- */
+.two-col {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1.2em;
+  align-items: center;
+  text-align: left;
+}
+.two-col.flip { grid-template-columns: 1fr 1.15fr; }
+.two-col img,
+.two-col video { width: 100%; height: auto; display: block; }
+.two-col ul { margin-left: 0.6em; }
+.two-col li { margin-bottom: 0.45em; }
+.two-col .caption { margin: 0.35em 0 0; }
+
+/* --- side-by-side pair (before / after, two objects) ------ */
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
+.pair figcaption {
+  font-size: 0.5em;
+  color: var(--muted);
+  margin-top: 0.3em;
+}
+
+/* --- captions and image credits -------------------------- */
+.caption {
+  font-size: 0.52em;
+  color: var(--muted);
+  line-height: 1.35;
+}
+/* A slide that fills the whole frame. Reveal normally shrink-wraps a
+   slide to its content and centres it; .fullbleed stretches it instead,
+   so things can be pinned to the real corners of the screen. */
+/* screen only: the PDF export does its own page layout, and stretching
+   the slide there pushes the text to the top of the page. */
+@media screen {
+  .reveal .slides section.fullbleed {
+    top: 0 !important;
+    height: 100%;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Credit over a full-bleed image or video. Bottom LEFT on purpose —
+   reveal's arrows and slide number live in the bottom right. */
+.reveal .credit {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin: 0;
+  text-align: left;
+}
+
+/* Background image credit: tiny, top-left corner, on every slide */
+.bg-credit {
+  position: fixed;
+  top: 4px;
+  left: 6px;
+  font-size: 15px;
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.55);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95);
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* --- video framing ---------------------------------------- */
+.reveal video { border-radius: 10px; }
+video.framed {
+  max-height: 72vh;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* --- running footer (hidden on title + full-bleed slides) -- */
+.footer {
+  position: fixed;
+  bottom: 14px;
+  left: 22px;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 15px;
+  color: var(--muted);
+  opacity: 0.75;
+  z-index: 30;
+  pointer-events: none;
+}
+/* footer is shown on ALL slides (data-state="hide-footer" no longer hides it) */
+
+/* dim the chrome so it doesn't compete with the slide */
+.reveal .slide-number {
+  background: none;
+  color: var(--muted);
+  font-size: 15px;
+}
+.reveal .controls { color: var(--muted); opacity: 0.55; }
+
+/* --- small helpers ---------------------------------------- */
+.muted { color: var(--muted); }
+.accent { color: var(--accent); }
+.tight li { margin-bottom: 0.2em; }
+.left { text-align: left; }
+
+/* The PDF export turns background videos into their poster
+   image; this keeps the overlay text legible there too.     */
+@media print {
+  .overlay { background: rgba(0, 0, 0, 0.55); }
+}
+
+
+/* --- set background ----------------------------------------- */
+.reveal-viewport {
+  /* dark veil keeps text readable over the image */
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    #000 url("../media/Euclid_Deep_Field_South_16x_zoom.jpg") center / cover no-repeat;
+}
+
+/* --- Euclid slide: spacecraft left, image right ------------- */
+.euclid-pair {
+  display: grid;
+  grid-template-columns: 0.55fr 1.45fr;
+  gap: 40px;
+  align-items: center;
+}
+.euclid-pair figure { margin: 0; }
+.euclid-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+.euclid-pair figcaption {
+  font-size: 13px;
+  line-height: 1.3;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 8px;
+  text-align: left;
+}
+/* faint frame so the image separates from the starry background */
+.faint-border {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* pop-up video overlaid on a slide (shown/hidden by fragments) */
+.video-pop {
+  position: absolute;
+  left: 42%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+.video-pop figure { margin: 0; }
+/* portrait phone video: size by height so it fits the 720px slide */
+.video-pop video {
+  display: block;
+  height: 600px;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  background: #000;
+}
+.video-pop figcaption {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 6px;
+  text-align: left;
+}
+
+/* --- plot with SPOILER masks (fade out on click) ------------ */
+.spoiler-fig {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+}
+.spoiler-fig img {
+  display: block;
+  height: 620px;
+  width: auto;
+  max-height: none;
+  margin: 0;
+  border-radius: 6px;
+}
+.spoiler {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 0.2em;
+  color: #fff;
+  background: #000;
+}
+/* image laid exactly over the base plot (e.g. an annotated version) */
+.spoiler-fig .overlay-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* --- single image on part of the screen, credit underneath -- */
+.framed-fig { margin: 0 auto; display: inline-block; }
+.framed-fig img {
+  display: block;
+  width: 900px;
+  height: auto;
+  max-width: none;
+  margin: 0;
+}
+.framed-fig figcaption {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 6px;
+  text-align: left;
+}
+
+/* --- plot with an annotated version fading in over it ------- */
+.overlay-fig { margin: 0 auto; display: inline-block; }
+.overlay-fig .stack { position: relative; }
+.overlay-fig .stack img {
+  display: block;
+  height: 600px;
+  width: auto;
+  max-height: none;
+  max-width: none;
+  margin: 0;
+  border-radius: 6px;   /* same as the Eisenstein plot */
+}
+.overlay-fig .stack .annot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.overlay-fig figcaption {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 6px;
+  text-align: left;
+}
+
+/* --- "What is dark energy?" slide ---------------------------- */
+/* title pinned to the top-left corner of the slide */
+.reveal .corner-title {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  margin: 0;
+  text-align: left;
+}
+/* content starts near the top instead of being centred vertically */
+@media screen {
+  .reveal .slides section.de-slide {
+    justify-content: flex-start;
+    padding-top: 110px;
+    box-sizing: border-box;
+  }
+}
+.de-gif { margin: 0 auto; display: inline-block; }
+.de-gif img {
+  display: block;
+  height: 380px;
+  width: auto;
+  max-height: none;
+  margin: 0;
+}
+.de-gif figcaption {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 6px;
+  text-align: left;
+}
+.reveal ul.de-list {
+  display: inline-block;
+  margin-top: 0.8em;
+  text-align: left;
+}
+.reveal ul.de-list li { margin-bottom: 0.35em; }
+
+/* custom fragment: always visible, struck through once its step is reached */
+.reveal .fragment.strike {
+  opacity: 1;
+  visibility: inherit;
+  text-decoration: line-through;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 3px;
+  transition: text-decoration-color 0.4s ease;
+}
+.reveal .fragment.strike.visible { text-decoration-color: #fff; }
+
+/* indented sub-point with an arrow instead of a bullet */
+.reveal ul.de-list li.arrow {
+  list-style: none;
+  margin-left: 1.2em;
+  position: relative;
+}
+.reveal ul.de-list li.arrow::before {
+  content: "\2192";          /* → */
+  position: absolute;
+  left: -1.2em;
+}
+
+/* --- history of the universe (left) + facilities column (right) --- */
+.history-layout {
+  display: grid;
+  grid-template-columns: 780px 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.history-layout figure { margin: 0; }
+.history-layout img {
+  display: block;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+}
+.history-fig img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+/* right-hand column: facilities in a 2-column grid
+   row 1: Roman | CSST, row 2: Euclid (centred), row 3: Rubin | DESI */
+.facilities {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 22px;
+  align-items: end;
+}
+.facilities figure { width: 100%; }
+.facilities img { width: 100%; height: auto; }
+.facilities .fac-euclid {
+  grid-column: 1 / -1;
+  justify-self: center;
+  width: 55%;
+}
+.facilities .fac-ground { margin-top: 18px; }   /* a bit of air above the ground row */
+.facilities .fac-desi img { width: 62%; }
+.reveal img.mirror { transform: scaleX(-1); }
+.history-layout figcaption {
+  font-size: 13px;
+  line-height: 1.3;
+  color: rgba(185, 192, 204, 0.75);   /* softer grey than the other credits */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 6px;
+  text-align: left;
+}
+.facilities figcaption { font-size: 10px; margin-top: 3px; }
+
+/* --- "What is dark matter?" slide ---------------------------- */
+/* like .de-slide, but content starts a bit higher */
+@media screen {
+  .reveal .slides section.dm-slide {
+    justify-content: flex-start;
+    padding-top: 105px;
+    box-sizing: border-box;
+  }
+}
+.dm-fig { margin: 0 auto; display: inline-block; }
+.dm-fig .stack { position: relative; }
+/* black-on-transparent text images need a white panel to be readable */
+.dm-fig img {
+  display: block;
+  background: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+}
+.dm-fig .stack img { height: 380px; width: auto; }
+.dm-fig .stack .dm-overlay { position: absolute; top: 0; left: 0; }
+.dm-forbes { margin-top: 18px; }
+.dm-forbes img { width: 679px; height: auto; }   /* same width as the excerpt (380px tall) */
+.dm-fig figcaption {
+  font-size: 13px;
+  line-height: 1.3;
+  color: rgba(185, 192, 204, 0.75);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.95);
+  margin-top: 6px;
+  text-align: left;
+}
+
+/* credit centred at the bottom instead of bottom-left */
+.reveal .credit.credit-centre {
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  text-align: center;
+}
+/* hide the background-image credit on slides marked data-hide-bg-credit */
+body.hide-bg-credit .bg-credit { display: none; }
+
+/* pie chart slide: make the white slightly see-through (black stays opaque).
+   Filter is defined in index.html (#white-see-through); applied to the whole
+   stack so the stacked images don't add up. */
+.pie-soft .stack { filter: url(#white-see-through); }
+
+/* backup slides (data-visibility="uncounted"): no slide number */
+/* (!important: reveal sets the slide number's display inline) */
+body.backup .reveal .slide-number { display: none !important; }
+/* faint frame around a stacked image so it separates from the starry background */
+.overlay-fig .stack.framed-stack {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 6px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* source links in image credits: same colour as the credit, subtle underline */
+.reveal figcaption a,
+.reveal .credit a,
+.bg-credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 2px;
+}
+.reveal figcaption a:hover,
+.reveal .credit a:hover,
+.bg-credit a:hover { text-decoration-style: solid; }
+/* the background credit ignores the mouse; let its link be clickable */
+.bg-credit a { pointer-events: auto; }
